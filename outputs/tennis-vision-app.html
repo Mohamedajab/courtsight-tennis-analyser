@@ -7,407 +7,78 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #101313;
-      --panel: #181d1d;
-      --panel-2: #202727;
-      --line: #31403e;
-      --text: #f2f7f4;
-      --muted: #a9b6b1;
-      --green: #81d66d;
-      --teal: #62cbd0;
-      --yellow: #f2cf5b;
-      --red: #f2766b;
-      --blue: #83a6ff;
+      --bg: #0e1111;
+      --panel: #171d1c;
+      --text: #f3f8f5;
+      --muted: #aab7b2;
+      --green: #86df72;
+      --teal: #63d0d5;
+      --yellow: #f2d15f;
+      --red: #f4766b;
+      --blue: #8aa8ff;
       --court: #2f8a6d;
       --court-side: #506db8;
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
-
     * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background:
-        radial-gradient(circle at 15% 10%, rgba(98, 203, 208, 0.15), transparent 30rem),
-        linear-gradient(135deg, #0d1111 0%, #101313 42%, #151919 100%);
-      color: var(--text);
-    }
-
-    button, input, select {
-      font: inherit;
-    }
-
-    .app {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 78px minmax(0, 1fr);
-    }
-
-    .rail {
-      border-right: 1px solid rgba(255,255,255,0.08);
-      background: rgba(11, 14, 14, 0.86);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 14px;
-      padding: 18px 12px;
-      position: sticky;
-      top: 0;
-      height: 100vh;
-    }
-
-    .logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(145deg, var(--green), var(--teal));
-      color: #071011;
-      font-weight: 900;
-      letter-spacing: 0;
-    }
-
-    .icon-btn {
-      width: 42px;
-      height: 42px;
-      border: 1px solid transparent;
-      border-radius: 8px;
-      display: grid;
-      place-items: center;
-      color: var(--muted);
-      background: transparent;
-      cursor: pointer;
-    }
-
-    .icon-btn.active, .icon-btn:hover {
-      border-color: rgba(129, 214, 109, 0.35);
-      color: var(--text);
-      background: rgba(129, 214, 109, 0.1);
-    }
-
-    main {
-      padding: 22px;
-      display: grid;
-      gap: 18px;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(24px, 3vw, 38px);
-      line-height: 1.05;
-      letter-spacing: 0;
-    }
-
-    .sub {
-      margin: 7px 0 0;
-      color: var(--muted);
-      max-width: 760px;
-      line-height: 1.45;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      gap: 9px;
-      align-items: center;
-      padding: 10px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.11);
-      background: rgba(255,255,255,0.05);
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--yellow);
-      box-shadow: 0 0 18px rgba(242, 207, 91, 0.75);
-    }
-
-    .workspace {
-      display: grid;
-      grid-template-columns: minmax(360px, 1.45fr) minmax(320px, 0.9fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .panel {
-      border: 1px solid rgba(255,255,255,0.09);
-      background: rgba(24, 29, 29, 0.9);
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 18px 55px rgba(0,0,0,0.22);
-    }
-
-    .panel-head {
-      min-height: 58px;
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .panel-title {
-      font-size: 15px;
-      font-weight: 750;
-    }
-
-    .actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      min-height: 38px;
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: 8px;
-      padding: 9px 12px;
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .btn.primary {
-      background: var(--green);
-      color: #08100a;
-      border-color: transparent;
-      font-weight: 800;
-    }
-
-    .video-stage {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      background: #080a0a;
-      overflow: hidden;
-    }
-
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      background: #050606;
-    }
-
-    .empty-video {
-      position: absolute;
-      inset: 0;
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      text-align: center;
-      background:
-        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-        #0c1010;
-      background-size: 42px 42px;
-    }
-
-    .drop {
-      max-width: 520px;
-      display: grid;
-      gap: 16px;
-      justify-items: center;
-    }
-
-    .drop strong {
-      font-size: 24px;
-      letter-spacing: 0;
-    }
-
-    .drop span {
-      color: var(--muted);
-      line-height: 1.45;
-    }
-
-    .file-input {
-      display: none;
-    }
-
-    .overlay-tag {
-      position: absolute;
-      left: 6%;
-      top: 7%;
-      display: grid;
-      gap: 8px;
-      min-width: 176px;
-    }
-
-    .tag {
-      border-radius: 8px;
-      padding: 9px 11px;
-      background: rgba(5, 7, 7, 0.78);
-      border: 1px solid rgba(255,255,255,0.14);
-      backdrop-filter: blur(8px);
-    }
-
-    .tag b {
-      display: block;
-      font-size: 13px;
-    }
-
-    .tag small {
-      color: var(--muted);
-    }
-
-    .tracking-dot {
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background: var(--yellow);
-      box-shadow: 0 0 0 6px rgba(242,207,91,0.16), 0 0 28px rgba(242,207,91,0.9);
-      left: 54%;
-      top: 46%;
-      translate: -50% -50%;
-      animation: floatBall 2.6s ease-in-out infinite;
-      display: none;
-    }
-
+    body { margin: 0; min-height: 100vh; background: radial-gradient(circle at 12% 12%, rgba(99, 208, 213, 0.14), transparent 28rem), linear-gradient(135deg, #0b0e0e 0%, #111514 46%, #161b1a 100%); color: var(--text); }
+    button, input, select { font: inherit; }
+    .app { min-height: 100vh; display: grid; grid-template-columns: 78px minmax(0, 1fr); }
+    .rail { border-right: 1px solid rgba(255,255,255,0.08); background: rgba(9, 12, 12, 0.88); display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 18px 12px; position: sticky; top: 0; height: 100vh; }
+    .logo { width: 44px; height: 44px; border-radius: 8px; display: grid; place-items: center; background: linear-gradient(145deg, var(--green), var(--teal)); color: #071011; font-weight: 900; }
+    .icon-btn { width: 42px; height: 42px; border: 1px solid transparent; border-radius: 8px; display: grid; place-items: center; color: var(--muted); background: transparent; cursor: pointer; }
+    .icon-btn.active, .icon-btn:hover { border-color: rgba(134, 223, 114, 0.35); color: var(--text); background: rgba(134, 223, 114, 0.1); }
+    main { padding: 22px; display: grid; gap: 18px; }
+    header { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    h1 { margin: 0; font-size: clamp(24px, 3vw, 38px); line-height: 1.05; letter-spacing: 0; }
+    .sub { margin: 7px 0 0; color: var(--muted); max-width: 780px; line-height: 1.45; }
+    .status-pill { display: inline-flex; gap: 9px; align-items: center; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.11); background: rgba(255,255,255,0.05); color: var(--muted); white-space: nowrap; }
+    .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 18px rgba(242, 209, 95, 0.75); }
+    .workspace { display: grid; grid-template-columns: minmax(420px, 1.45fr) minmax(330px, 0.9fr); gap: 18px; align-items: start; }
+    .panel { border: 1px solid rgba(255,255,255,0.09); background: rgba(23, 29, 28, 0.92); border-radius: 8px; overflow: hidden; box-shadow: 0 18px 55px rgba(0,0,0,0.22); }
+    .panel-head { min-height: 58px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .panel-title { font-size: 15px; font-weight: 750; }
+    .actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .btn { min-height: 38px; border: 1px solid rgba(255,255,255,0.12); border-radius: 8px; padding: 9px 12px; background: rgba(255,255,255,0.06); color: var(--text); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    .btn.primary { background: var(--green); color: #08100a; border-color: transparent; font-weight: 800; }
+    .btn:disabled { opacity: 0.55; cursor: wait; }
+    .video-stage { position: relative; aspect-ratio: 16 / 9; background: #080a0a; overflow: hidden; }
+    video { width: 100%; height: 100%; object-fit: contain; display: block; background: #050606; }
+    .empty-video { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center; background: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px), #0c1010; background-size: 42px 42px; }
+    .drop { max-width: 540px; display: grid; gap: 16px; justify-items: center; }
+    .drop strong { font-size: 24px; }
+    .drop span { color: var(--muted); line-height: 1.45; }
+    .file-input { display: none; }
+    .overlay-stack { position: absolute; left: 6%; top: 7%; display: grid; gap: 8px; min-width: 188px; }
+    .tag { border-radius: 8px; padding: 9px 11px; background: rgba(5, 7, 7, 0.78); border: 1px solid rgba(255,255,255,0.14); backdrop-filter: blur(8px); }
+    .tag b { display: block; font-size: 13px; }
+    .tag small { color: var(--muted); }
+    .tracking-dot { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 0 6px rgba(242,209,95,0.16), 0 0 28px rgba(242,209,95,0.9); left: 54%; top: 46%; translate: -50% -50%; animation: floatBall 2.6s ease-in-out infinite; display: none; }
     .has-video .tracking-dot { display: block; }
-
-    @keyframes floatBall {
-      0%, 100% { transform: translate(0, 0); }
-      45% { transform: translate(72px, -34px); }
-      70% { transform: translate(110px, 20px); }
-    }
-
-    .timeline {
-      padding: 13px 16px 16px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .timeline-bar {
-      height: 12px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--green) 0 18%, var(--teal) 18% 42%, var(--yellow) 42% 58%, var(--blue) 58% 78%, var(--red) 78% 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .timeline-bar::after {
-      content: "";
-      position: absolute;
-      width: 3px;
-      inset-block: 0;
-      left: var(--playhead, 22%);
-      background: #fff;
-      box-shadow: 0 0 12px rgba(255,255,255,0.75);
-    }
-
-    .event-row {
-      display: grid;
-      grid-template-columns: 58px 1fr 74px 74px;
-      gap: 10px;
-      align-items: center;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
+    .skeleton-line { position: absolute; display: none; width: 19%; height: 2px; background: rgba(99,208,213,0.75); left: 34%; top: 58%; transform: rotate(-22deg); box-shadow: 0 0 16px rgba(99,208,213,0.55); }
+    .has-video .skeleton-line { display: block; }
+    @keyframes floatBall { 0%, 100% { transform: translate(0, 0); } 45% { transform: translate(72px, -34px); } 70% { transform: translate(110px, 20px); } }
+    .timeline { padding: 13px 16px 16px; display: grid; gap: 12px; }
+    .timeline-bar { height: 12px; border-radius: 999px; background: linear-gradient(90deg, var(--green) 0 18%, var(--teal) 18% 42%, var(--yellow) 42% 58%, var(--blue) 58% 78%, var(--red) 78% 100%); position: relative; overflow: hidden; }
+    .timeline-bar::after { content: ""; position: absolute; width: 3px; inset-block: 0; left: var(--playhead, 22%); background: #fff; box-shadow: 0 0 12px rgba(255,255,255,0.75); }
+    .filters { display: flex; gap: 8px; flex-wrap: wrap; padding-top: 2px; }
+    .chip { border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.045); color: var(--muted); border-radius: 8px; padding: 7px 9px; cursor: pointer; }
+    .chip.active { background: rgba(134,223,114,0.12); border-color: rgba(134,223,114,0.38); color: var(--text); }
+    .event-list { display: grid; gap: 7px; max-height: 270px; overflow: auto; padding-right: 4px; }
+    .event-row { display: grid; grid-template-columns: 58px 1fr 78px 70px 76px; gap: 10px; align-items: center; color: var(--muted); font-size: 13px; padding: 7px; border-radius: 8px; cursor: pointer; }
+    .event-row:hover, .event-row.selected { background: rgba(255,255,255,0.06); }
     .event-row b { color: var(--text); }
-
-    .stroke {
-      display: inline-flex;
-      width: fit-content;
-      align-items: center;
-      gap: 7px;
-      padding: 6px 8px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.06);
-      color: var(--text);
-    }
-
-    .swatch {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      background: var(--stroke-color);
-    }
-
-    .side {
-      display: grid;
-      gap: 18px;
-    }
-
-    .metrics {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding: 14px;
-    }
-
-    .metric {
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 8px;
-      padding: 12px;
-      background: rgba(255,255,255,0.045);
-      min-height: 92px;
-    }
-
-    .metric small {
-      display: block;
-      color: var(--muted);
-      margin-bottom: 9px;
-    }
-
-    .metric strong {
-      display: block;
-      font-size: 27px;
-      letter-spacing: 0;
-    }
-
-    .metric span {
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .court-wrap {
-      padding: 16px;
-    }
-
-    .court {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 0.55;
-      max-height: 560px;
-      margin: 0 auto;
-      background:
-        linear-gradient(90deg, var(--court-side) 0 10%, var(--court) 10% 90%, var(--court-side) 90% 100%);
-      border: 3px solid rgba(255,255,255,0.86);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .court::before,
-    .court::after,
-    .net,
-    .service-h,
-    .service-v,
-    .alley-l,
-    .alley-r {
-      content: "";
-      position: absolute;
-      background: rgba(255,255,255,0.88);
-    }
-
+    .stroke { display: inline-flex; width: fit-content; align-items: center; gap: 7px; padding: 6px 8px; border-radius: 8px; background: rgba(255,255,255,0.06); color: var(--text); }
+    .swatch { width: 9px; height: 9px; border-radius: 50%; background: var(--stroke-color); }
+    .side { display: grid; gap: 18px; }
+    .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 14px; }
+    .metric { border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 12px; background: rgba(255,255,255,0.045); min-height: 92px; }
+    .metric small { display: block; color: var(--muted); margin-bottom: 9px; }
+    .metric strong { display: block; font-size: 27px; }
+    .metric span { color: var(--muted); font-size: 12px; }
+    .court-wrap { padding: 16px; display: grid; grid-template-columns: minmax(160px, 1fr) 126px; gap: 14px; align-items: start; }
+    .court { position: relative; width: 100%; aspect-ratio: 0.55; max-height: 560px; margin: 0 auto; background: linear-gradient(90deg, var(--court-side) 0 10%, var(--court) 10% 90%, var(--court-side) 90% 100%); border: 3px solid rgba(255,255,255,0.86); border-radius: 6px; overflow: hidden; }
+    .court::before, .court::after, .net, .service-h, .service-v, .alley-l, .alley-r { content: ""; position: absolute; background: rgba(255,255,255,0.88); }
     .court::before { left: 10%; right: 10%; top: 50%; height: 3px; transform: translateY(-50%); }
     .court::after { top: 0; bottom: 0; left: 50%; width: 2px; transform: translateX(-50%); opacity: .9; }
     .net { left: 0; right: 0; top: 50%; height: 5px; transform: translateY(-50%); background: rgba(20, 30, 30, 0.72); }
@@ -415,341 +86,72 @@
     .service-v { left: 50%; width: 2px; top: 33.3%; height: 33.4%; transform: translateX(-50%); }
     .alley-l { left: 10%; width: 2px; top: 0; bottom: 0; }
     .alley-r { right: 10%; width: 2px; top: 0; bottom: 0; }
-
-    .landing {
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      border-radius: 50%;
-      left: var(--x);
-      top: var(--y);
-      translate: -50% -50%;
-      background: var(--c);
-      border: 2px solid rgba(255,255,255,0.9);
-      box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 20%, transparent);
-    }
-
-    .legend {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      padding: 0 16px 16px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .legend span {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .breakdown {
-      padding: 14px;
-      display: grid;
-      gap: 12px;
-    }
-
-    .bar-line {
-      display: grid;
-      grid-template-columns: 88px 1fr 42px;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    .bar {
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,0.08);
-      overflow: hidden;
-    }
-
-    .bar i {
-      display: block;
-      height: 100%;
-      width: var(--w);
-      background: var(--c);
-      border-radius: inherit;
-    }
-
-    .notice {
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.45;
-      padding: 0 16px 16px;
-    }
-
-    @media (max-width: 1000px) {
-      .app { grid-template-columns: 1fr; }
-      .rail {
-        height: auto;
-        position: static;
-        flex-direction: row;
-        justify-content: center;
-        border-right: 0;
-        border-bottom: 1px solid rgba(255,255,255,0.08);
-      }
-      .workspace { grid-template-columns: 1fr; }
-    }
-
-    @media (max-width: 620px) {
-      main { padding: 14px; }
-      header { align-items: flex-start; flex-direction: column; }
-      .metrics { grid-template-columns: 1fr; }
-      .event-row { grid-template-columns: 44px 1fr; }
-      .event-row > :nth-child(n+3) { display: none; }
-      .panel-head { align-items: flex-start; flex-direction: column; }
-      .actions { width: 100%; }
-      .btn { justify-content: center; flex: 1; }
-    }
+    .zone { position: absolute; border: 1px solid rgba(255,255,255,0.12); background: rgba(242,209,95,var(--alpha)); }
+    .landing { position: absolute; width: 15px; height: 15px; border-radius: 50%; left: var(--x); top: var(--y); translate: -50% -50%; background: var(--c); border: 2px solid rgba(255,255,255,0.9); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 20%, transparent); cursor: pointer; }
+    .court-notes { display: grid; gap: 10px; color: var(--muted); font-size: 12px; }
+    .zone-card { border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; background: rgba(255,255,255,0.045); }
+    .zone-card b { color: var(--text); display: block; margin-bottom: 4px; }
+    .legend { display: flex; gap: 10px; flex-wrap: wrap; padding: 0 16px 16px; color: var(--muted); font-size: 12px; }
+    .legend span { display: inline-flex; align-items: center; gap: 6px; }
+    .breakdown { padding: 14px; display: grid; gap: 12px; }
+    .bar-line { display: grid; grid-template-columns: 88px 1fr 42px; align-items: center; gap: 10px; font-size: 13px; color: var(--muted); }
+    .bar { height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .bar i { display: block; height: 100%; width: var(--w); background: var(--c); border-radius: inherit; }
+    .insights { padding: 0 14px 14px; display: grid; gap: 8px; }
+    .insight { border-left: 3px solid var(--teal); background: rgba(255,255,255,0.045); padding: 9px 10px; border-radius: 6px; color: var(--muted); font-size: 13px; line-height: 1.35; }
+    .notice { color: var(--muted); font-size: 12px; line-height: 1.45; padding: 0 16px 16px; }
+    .progress { height: 8px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,0.08); width: 190px; margin-top: 8px; }
+    .progress i { display: block; height: 100%; width: var(--w, 0%); background: linear-gradient(90deg, var(--green), var(--teal)); transition: width 260ms ease; }
+    @media (max-width: 1120px) { .workspace { grid-template-columns: 1fr; } }
+    @media (max-width: 820px) { .app { grid-template-columns: 1fr; } .rail { height: auto; position: static; flex-direction: row; justify-content: center; border-right: 0; border-bottom: 1px solid rgba(255,255,255,0.08); } .court-wrap { grid-template-columns: 1fr; } }
+    @media (max-width: 620px) { main { padding: 14px; } header { align-items: flex-start; flex-direction: column; } .metrics { grid-template-columns: 1fr; } .event-row { grid-template-columns: 44px 1fr; } .event-row > :nth-child(n+3) { display: none; } .panel-head { align-items: flex-start; flex-direction: column; } .actions { width: 100%; } .btn { justify-content: center; flex: 1; } }
   </style>
 </head>
 <body>
   <div class="app">
     <nav class="rail" aria-label="Main navigation">
       <div class="logo" title="CourtSight">CS</div>
-      <button class="icon-btn active" title="Analyze">⌁</button>
-      <button class="icon-btn" title="Sessions">◴</button>
-      <button class="icon-btn" title="Players">◐</button>
-      <button class="icon-btn" title="Settings">⚙</button>
+      <button class="icon-btn active" title="Analyze">⌁</button><button class="icon-btn" title="Rallies">◴</button><button class="icon-btn" title="Players">◐</button><button class="icon-btn" title="Settings">⚙</button>
     </nav>
-
     <main>
-      <header>
-        <div>
-          <h1>CourtSight Tennis Analyzer</h1>
-          <p class="sub">Upload match or training footage, then review detected forehands, backhands, serve returns, ball speed, and landing locations on a court map.</p>
-        </div>
-        <div class="status-pill"><span class="dot"></span><span id="statusText">Ready for video</span></div>
-      </header>
-
+      <header><div><h1>CourtSight Tennis Analyzer</h1><p class="sub">Upload match or training footage, calibrate the court, review detected strokes, speed, confidence, landing depth, and rally patterns.</p></div><div class="status-pill"><span class="dot"></span><span id="statusText">Ready for video</span></div></header>
       <section class="workspace">
         <div class="panel">
-          <div class="panel-head">
-            <div class="panel-title">Video Analysis</div>
-            <div class="actions">
-              <label class="btn primary" for="videoInput">Upload video</label>
-              <button class="btn" id="analyzeBtn">Analyze</button>
-              <button class="btn" id="sampleBtn">Use sample data</button>
-            </div>
-          </div>
-          <div class="video-stage" id="videoStage">
-            <video id="video" controls playsinline></video>
-            <div class="empty-video" id="emptyState">
-              <div class="drop">
-                <strong>Drop in a tennis clip</strong>
-                <span>This prototype reads your selected file locally and displays the kind of stroke, speed, and landing analysis a production computer-vision model would return.</span>
-                <label class="btn primary" for="videoInput">Choose video</label>
-              </div>
-            </div>
-            <div class="overlay-tag">
-              <div class="tag"><b id="liveStroke">Forehand topspin</b><small id="liveTime">00:14.2 · confidence 92%</small></div>
-              <div class="tag"><b id="liveSpeed">73 mph</b><small>estimated ball speed</small></div>
-            </div>
-            <div class="tracking-dot"></div>
-          </div>
-          <input id="videoInput" class="file-input" type="file" accept="video/*">
-          <div class="timeline">
-            <div class="timeline-bar" id="timelineBar"></div>
-            <div id="eventList"></div>
-          </div>
+          <div class="panel-head"><div><div class="panel-title">Video Analysis</div><div class="progress" aria-label="Analysis progress"><i id="progressBar"></i></div></div><div class="actions"><label class="btn primary" for="videoInput">Upload video</label><button class="btn" id="analyzeBtn">Analyze</button><button class="btn" id="sampleBtn">Use sample</button><button class="btn" id="exportBtn">Export JSON</button></div></div>
+          <div class="video-stage" id="videoStage"><video id="video" controls playsinline></video><div class="empty-video" id="emptyState"><div class="drop"><strong>Drop in a tennis clip</strong><span>This prototype runs locally in the browser and displays the review workflow a production court, pose, and ball-tracking pipeline would power.</span><label class="btn primary" for="videoInput">Choose video</label></div></div><div class="overlay-stack"><div class="tag"><b id="liveStroke">Forehand topspin</b><small id="liveTime">00:14.2 · confidence 92%</small></div><div class="tag"><b id="liveSpeed">73 mph</b><small id="liveDepth">deep cross-court · in</small></div></div><div class="skeleton-line"></div><div class="tracking-dot"></div></div>
+          <input id="videoInput" class="file-input" type="file" accept="video/*"><div class="timeline"><div class="timeline-bar" id="timelineBar"></div><div class="filters" id="filters"></div><div class="event-list" id="eventList"></div></div>
         </div>
-
         <aside class="side">
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Session Metrics</div>
-              <select id="modeSelect" class="btn" aria-label="Session type">
-                <option>Singles</option>
-                <option>Doubles</option>
-                <option>Training basket</option>
-              </select>
-            </div>
-            <div class="metrics">
-              <div class="metric"><small>Total shots</small><strong id="shots">0</strong><span>detected contacts</span></div>
-              <div class="metric"><small>Top speed</small><strong id="topSpeed">0</strong><span>mph</span></div>
-              <div class="metric"><small>In rate</small><strong id="inRate">0%</strong><span>landing accuracy</span></div>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Landing Map</div>
-              <button class="btn" id="clearBtn">Clear</button>
-            </div>
-            <div class="court-wrap">
-              <div class="court" id="court">
-                <span class="net"></span>
-                <span class="service-h"></span>
-                <span class="service-v"></span>
-                <span class="alley-l"></span>
-                <span class="alley-r"></span>
-              </div>
-            </div>
-            <div class="legend">
-              <span><i class="swatch" style="--stroke-color: var(--green)"></i>Forehand</span>
-              <span><i class="swatch" style="--stroke-color: var(--teal)"></i>Backhand</span>
-              <span><i class="swatch" style="--stroke-color: var(--yellow)"></i>Serve</span>
-              <span><i class="swatch" style="--stroke-color: var(--red)"></i>Volley</span>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel-head">
-              <div class="panel-title">Stroke Breakdown</div>
-            </div>
-            <div class="breakdown" id="breakdown"></div>
-            <p class="notice">Production version: replace the sample analyzer with pose estimation, court calibration, ball tracking, and camera-frame-to-court projection.</p>
-          </div>
+          <div class="panel"><div class="panel-head"><div class="panel-title">Session Metrics</div><select id="modeSelect" class="btn" aria-label="Session type"><option>Singles</option><option>Doubles</option><option>Training basket</option></select></div><div class="metrics"><div class="metric"><small>Total shots</small><strong id="shots">0</strong><span>detected contacts</span></div><div class="metric"><small>Top speed</small><strong id="topSpeed">0</strong><span>mph</span></div><div class="metric"><small>In rate</small><strong id="inRate">0%</strong><span>landing accuracy</span></div><div class="metric"><small>Avg rally</small><strong id="avgRally">0</strong><span>shots per rally</span></div><div class="metric"><small>Attack rate</small><strong id="attackRate">0%</strong><span>deep or fast balls</span></div><div class="metric"><small>Model confidence</small><strong id="confidence">0%</strong><span>mean estimate</span></div></div></div>
+          <div class="panel"><div class="panel-head"><div class="panel-title">Landing Map</div><button class="btn" id="clearBtn">Clear</button></div><div class="court-wrap"><div class="court" id="court"><span class="net"></span><span class="service-h"></span><span class="service-v"></span><span class="alley-l"></span><span class="alley-r"></span></div><div class="court-notes" id="zoneNotes"></div></div><div class="legend"><span><i class="swatch" style="--stroke-color: var(--green)"></i>Forehand</span><span><i class="swatch" style="--stroke-color: var(--teal)"></i>Backhand</span><span><i class="swatch" style="--stroke-color: var(--yellow)"></i>Serve</span><span><i class="swatch" style="--stroke-color: var(--red)"></i>Volley</span></div></div>
+          <div class="panel"><div class="panel-head"><div class="panel-title">Stroke Breakdown</div></div><div class="breakdown" id="breakdown"></div><div class="insights" id="insights"></div><p class="notice">Production version: connect court calibration, pose estimation, ball tracking, and frame-to-court projection to replace the sample analyzer.</p></div>
         </aside>
       </section>
     </main>
   </div>
-
   <script>
-    const videoInput = document.getElementById('videoInput');
-    const video = document.getElementById('video');
-    const emptyState = document.getElementById('emptyState');
-    const videoStage = document.getElementById('videoStage');
-    const analyzeBtn = document.getElementById('analyzeBtn');
-    const sampleBtn = document.getElementById('sampleBtn');
-    const clearBtn = document.getElementById('clearBtn');
-    const statusText = document.getElementById('statusText');
-    const eventList = document.getElementById('eventList');
-    const court = document.getElementById('court');
-    const breakdown = document.getElementById('breakdown');
-    const shots = document.getElementById('shots');
-    const topSpeed = document.getElementById('topSpeed');
-    const inRate = document.getElementById('inRate');
-    const liveStroke = document.getElementById('liveStroke');
-    const liveTime = document.getElementById('liveTime');
-    const liveSpeed = document.getElementById('liveSpeed');
-    const timelineBar = document.getElementById('timelineBar');
-
-    const colors = {
-      'Forehand topspin': 'var(--green)',
-      'Forehand slice': 'var(--green)',
-      'Backhand topspin': 'var(--teal)',
-      'Backhand slice': 'var(--teal)',
-      'Serve': 'var(--yellow)',
-      'Volley': 'var(--red)'
-    };
-
+    const $ = id => document.getElementById(id);
+    const videoInput = $('videoInput'), video = $('video'), emptyState = $('emptyState'), videoStage = $('videoStage'), analyzeBtn = $('analyzeBtn'), sampleBtn = $('sampleBtn'), clearBtn = $('clearBtn'), exportBtn = $('exportBtn'), statusText = $('statusText'), eventList = $('eventList'), filters = $('filters'), court = $('court'), breakdown = $('breakdown'), insights = $('insights'), zoneNotes = $('zoneNotes'), progressBar = $('progressBar'), timelineBar = $('timelineBar');
+    const colors = { 'Forehand topspin': 'var(--green)', 'Forehand slice': 'var(--green)', 'Inside-out forehand': 'var(--green)', 'Backhand topspin': 'var(--teal)', 'Backhand slice': 'var(--teal)', 'Serve': 'var(--yellow)', 'Return': 'var(--blue)', 'Volley': 'var(--red)' };
     const sampleEvents = [
-      { time: '00:04.8', stroke: 'Serve', speed: 96, land: 'In', x: 64, y: 23 },
-      { time: '00:07.1', stroke: 'Backhand slice', speed: 48, land: 'In', x: 38, y: 72 },
-      { time: '00:10.5', stroke: 'Forehand topspin', speed: 73, land: 'In', x: 69, y: 68 },
-      { time: '00:14.2', stroke: 'Forehand topspin', speed: 77, land: 'In', x: 57, y: 29 },
-      { time: '00:18.9', stroke: 'Backhand topspin', speed: 64, land: 'In', x: 32, y: 31 },
-      { time: '00:22.6', stroke: 'Volley', speed: 42, land: 'Out', x: 91, y: 48 },
-      { time: '00:27.4', stroke: 'Forehand slice', speed: 51, land: 'In', x: 46, y: 77 },
-      { time: '00:31.3', stroke: 'Backhand topspin', speed: 68, land: 'In', x: 29, y: 64 }
+      { time: '00:04.8', rally: 1, stroke: 'Serve', speed: 96, confidence: 91, land: 'In', depth: 'wide serve', x: 64, y: 23 }, { time: '00:07.1', rally: 1, stroke: 'Return', speed: 62, confidence: 89, land: 'In', depth: 'middle third', x: 38, y: 72 }, { time: '00:10.5', rally: 1, stroke: 'Forehand topspin', speed: 73, confidence: 94, land: 'In', depth: 'deep cross-court', x: 69, y: 68 }, { time: '00:14.2', rally: 1, stroke: 'Inside-out forehand', speed: 81, confidence: 92, land: 'In', depth: 'deep inside-out', x: 57, y: 29 }, { time: '00:18.9', rally: 1, stroke: 'Backhand topspin', speed: 64, confidence: 87, land: 'In', depth: 'short angle', x: 32, y: 31 }, { time: '00:22.6', rally: 1, stroke: 'Volley', speed: 42, confidence: 85, land: 'Out', depth: 'wide miss', x: 91, y: 48 }, { time: '00:27.4', rally: 2, stroke: 'Forehand slice', speed: 51, confidence: 86, land: 'In', depth: 'approach depth', x: 46, y: 77 }, { time: '00:31.3', rally: 2, stroke: 'Backhand topspin', speed: 68, confidence: 90, land: 'In', depth: 'deep middle', x: 29, y: 64 }, { time: '00:35.9', rally: 2, stroke: 'Forehand topspin', speed: 77, confidence: 93, land: 'In', depth: 'deep cross-court', x: 72, y: 70 }, { time: '00:39.6', rally: 2, stroke: 'Backhand slice', speed: 45, confidence: 84, land: 'In', depth: 'low short ball', x: 43, y: 38 }, { time: '00:43.8', rally: 3, stroke: 'Serve', speed: 101, confidence: 90, land: 'In', depth: 'body serve', x: 52, y: 24 }, { time: '00:47.2', rally: 3, stroke: 'Return', speed: 58, confidence: 88, land: 'In', depth: 'neutral return', x: 48, y: 75 }
     ];
-
-    function render(events) {
-      eventList.innerHTML = '';
-      court.querySelectorAll('.landing').forEach(el => el.remove());
-
-      events.forEach((event, index) => {
-        const row = document.createElement('div');
-        row.className = 'event-row';
-        row.innerHTML = `
-          <b>${event.time}</b>
-          <span class="stroke"><i class="swatch" style="--stroke-color: ${colors[event.stroke]}"></i>${event.stroke}</span>
-          <span>${event.speed} mph</span>
-          <span>${event.land}</span>
-        `;
-        row.addEventListener('click', () => setLiveEvent(event, index, events.length));
-        eventList.appendChild(row);
-
-        const dot = document.createElement('span');
-        dot.className = 'landing';
-        dot.style.setProperty('--x', `${event.x}%`);
-        dot.style.setProperty('--y', `${event.y}%`);
-        dot.style.setProperty('--c', colors[event.stroke]);
-        dot.title = `${event.time} · ${event.stroke} · ${event.speed} mph · ${event.land}`;
-        court.appendChild(dot);
-      });
-
-      const maxSpeed = Math.max(...events.map(e => e.speed));
-      const inPct = Math.round(events.filter(e => e.land === 'In').length / events.length * 100);
-      shots.textContent = events.length;
-      topSpeed.textContent = maxSpeed;
-      inRate.textContent = `${inPct}%`;
-      renderBreakdown(events);
-      setLiveEvent(events[3] || events[0], 3, events.length);
-    }
-
-    function setLiveEvent(event, index, total) {
-      liveStroke.textContent = event.stroke;
-      liveTime.textContent = `${event.time} · confidence ${88 + (index % 8)}%`;
-      liveSpeed.textContent = `${event.speed} mph`;
-      timelineBar.style.setProperty('--playhead', `${Math.min(96, Math.max(4, (index + 1) / total * 100))}%`);
-    }
-
-    function renderBreakdown(events) {
-      const groups = events.reduce((acc, event) => {
-        const key = event.stroke.includes('Forehand') ? 'Forehand' :
-          event.stroke.includes('Backhand') ? 'Backhand' : event.stroke;
-        acc[key] = (acc[key] || 0) + 1;
-        return acc;
-      }, {});
-
-      breakdown.innerHTML = Object.entries(groups)
-        .sort((a, b) => b[1] - a[1])
-        .map(([name, count]) => {
-          const pct = Math.round(count / events.length * 100);
-          const color = name === 'Forehand' ? 'var(--green)' : name === 'Backhand' ? 'var(--teal)' : name === 'Serve' ? 'var(--yellow)' : 'var(--red)';
-          return `
-            <div class="bar-line">
-              <span>${name}</span>
-              <span class="bar"><i style="--w: ${pct}%; --c: ${color}"></i></span>
-              <b>${pct}%</b>
-            </div>
-          `;
-        }).join('');
-    }
-
-    function runAnalysis() {
-      statusText.textContent = 'Analyzing court and ball path...';
-      analyzeBtn.disabled = true;
-      setTimeout(() => {
-        render(sampleEvents);
-        statusText.textContent = 'Analysis complete';
-        analyzeBtn.disabled = false;
-      }, 900);
-    }
-
-    videoInput.addEventListener('change', event => {
-      const file = event.target.files[0];
-      if (!file) return;
-      video.src = URL.createObjectURL(file);
-      emptyState.style.display = 'none';
-      videoStage.classList.add('has-video');
-      statusText.textContent = 'Video loaded';
-      runAnalysis();
-    });
-
-    analyzeBtn.addEventListener('click', runAnalysis);
-    sampleBtn.addEventListener('click', () => {
-      emptyState.style.display = 'none';
-      videoStage.classList.add('has-video');
-      statusText.textContent = 'Sample session loaded';
-      render(sampleEvents);
-    });
-
-    clearBtn.addEventListener('click', () => {
-      court.querySelectorAll('.landing').forEach(el => el.remove());
-      eventList.innerHTML = '';
-      breakdown.innerHTML = '';
-      shots.textContent = '0';
-      topSpeed.textContent = '0';
-      inRate.textContent = '0%';
-      statusText.textContent = 'Ready for video';
-    });
-
+    let currentEvents = sampleEvents, activeFilter = 'All', selectedIndex = 3;
+    function family(stroke) { if (stroke.includes('Forehand')) return 'Forehand'; if (stroke.includes('Backhand')) return 'Backhand'; return stroke; }
+    function visibleEvents() { return activeFilter === 'All' ? currentEvents : currentEvents.filter(e => family(e.stroke) === activeFilter); }
+    function render(events) { currentEvents = events; renderFilters(); renderEvents(); renderCourt(events); renderMetrics(events); renderBreakdown(events); renderInsights(events); setLive(events[selectedIndex] || events[0], selectedIndex, events.length); }
+    function renderFilters() { const names = ['All', ...new Set(currentEvents.map(e => family(e.stroke)))]; filters.innerHTML = names.map(n => `<button class="chip ${n === activeFilter ? 'active' : ''}" data-filter="${n}">${n}</button>`).join(''); filters.querySelectorAll('button').forEach(b => b.addEventListener('click', () => { activeFilter = b.dataset.filter; renderFilters(); renderEvents(); })); }
+    function renderEvents() { eventList.innerHTML = ''; visibleEvents().forEach(event => { const index = currentEvents.indexOf(event); const row = document.createElement('div'); row.className = `event-row ${index === selectedIndex ? 'selected' : ''}`; row.innerHTML = `<b>${event.time}</b><span class="stroke"><i class="swatch" style="--stroke-color: ${colors[event.stroke]}"></i>${event.stroke}</span><span>${event.speed} mph</span><span>${event.confidence}%</span><span>${event.land}</span>`; row.addEventListener('click', () => { selectedIndex = index; setLive(event, index, currentEvents.length); renderEvents(); }); eventList.appendChild(row); }); }
+    function renderCourt(events) { court.querySelectorAll('.landing, .zone').forEach(el => el.remove()); const zones = [{ name: 'Ad deep', x: 10, y: 58, w: 40, h: 21, count: 0 }, { name: 'Deuce deep', x: 50, y: 58, w: 40, h: 21, count: 0 }, { name: 'Short balls', x: 10, y: 29, w: 80, h: 22, count: 0 }]; events.forEach(event => zones.forEach(z => { if (event.x >= z.x && event.x <= z.x + z.w && event.y >= z.y && event.y <= z.y + z.h && event.land === 'In') z.count += 1; })); zones.forEach(z => { const zone = document.createElement('span'); zone.className = 'zone'; zone.style.left = `${z.x}%`; zone.style.top = `${z.y}%`; zone.style.width = `${z.w}%`; zone.style.height = `${z.h}%`; zone.style.setProperty('--alpha', Math.min(0.24, 0.04 + z.count * 0.04)); court.appendChild(zone); }); events.forEach((event, index) => { const dot = document.createElement('span'); dot.className = 'landing'; dot.style.setProperty('--x', `${event.x}%`); dot.style.setProperty('--y', `${event.y}%`); dot.style.setProperty('--c', colors[event.stroke]); dot.title = `${event.time} · ${event.stroke} · ${event.speed} mph · ${event.depth}`; dot.addEventListener('click', () => { selectedIndex = index; setLive(event, index, events.length); renderEvents(); }); court.appendChild(dot); }); zoneNotes.innerHTML = zones.map(z => `<div class="zone-card"><b>${z.name}</b><span>${z.count} landing${z.count === 1 ? '' : 's'} detected</span></div>`).join(''); }
+    function renderMetrics(events) { const maxSpeed = Math.max(...events.map(e => e.speed)); const inPct = Math.round(events.filter(e => e.land === 'In').length / events.length * 100); const rallies = Object.values(events.reduce((acc, e) => { acc[e.rally] = (acc[e.rally] || 0) + 1; return acc; }, {})); const meanRally = (rallies.reduce((s, c) => s + c, 0) / rallies.length).toFixed(1); const attacking = events.filter(e => e.speed >= 75 || e.depth.includes('deep')).length; const meanConfidence = Math.round(events.reduce((s, e) => s + e.confidence, 0) / events.length); $('shots').textContent = events.length; $('topSpeed').textContent = maxSpeed; $('inRate').textContent = `${inPct}%`; $('avgRally').textContent = meanRally; $('attackRate').textContent = `${Math.round(attacking / events.length * 100)}%`; $('confidence').textContent = `${meanConfidence}%`; }
+    function setLive(event, index, total) { $('liveStroke').textContent = event.stroke; $('liveTime').textContent = `${event.time} · rally ${event.rally} · confidence ${event.confidence}%`; $('liveSpeed').textContent = `${event.speed} mph`; $('liveDepth').textContent = `${event.depth} · ${event.land.toLowerCase()}`; timelineBar.style.setProperty('--playhead', `${Math.min(96, Math.max(4, (index + 1) / total * 100))}%`); }
+    function renderBreakdown(events) { const groups = events.reduce((acc, e) => { const key = family(e.stroke); acc[key] = (acc[key] || 0) + 1; return acc; }, {}); breakdown.innerHTML = Object.entries(groups).sort((a, b) => b[1] - a[1]).map(([name, count]) => { const pct = Math.round(count / events.length * 100); const color = name === 'Forehand' ? 'var(--green)' : name === 'Backhand' ? 'var(--teal)' : name === 'Serve' ? 'var(--yellow)' : name === 'Return' ? 'var(--blue)' : 'var(--red)'; return `<div class="bar-line"><span>${name}</span><span class="bar"><i style="--w: ${pct}%; --c: ${color}"></i></span><b>${pct}%</b></div>`; }).join(''); }
+    function renderInsights(events) { const forehandAttack = events.filter(e => family(e.stroke) === 'Forehand' && e.land === 'In' && (e.speed >= 75 || e.depth.includes('deep'))).length; const misses = events.filter(e => e.land === 'Out').length; const backhands = events.filter(e => family(e.stroke) === 'Backhand'); const backhandAvg = backhands.length ? Math.round(backhands.reduce((s, e) => s + e.speed, 0) / backhands.length) : 0; insights.innerHTML = [`Forehand pressure: ${forehandAttack} attacking forehands landed in.`, `Backhand tempo: average backhand speed is ${backhandAvg} mph.`, misses ? `Error pattern: ${misses} ball finished out, mostly wide or late-contact zones.` : 'Error pattern: all tracked balls landed in.'].map(t => `<div class="insight">${t}</div>`).join(''); }
+    function runAnalysis() { statusText.textContent = 'Calibrating court lines...'; analyzeBtn.disabled = true; progressBar.style.setProperty('--w', '18%'); setTimeout(() => { statusText.textContent = 'Tracking ball and player pose...'; progressBar.style.setProperty('--w', '54%'); }, 420); setTimeout(() => { statusText.textContent = 'Classifying strokes...'; progressBar.style.setProperty('--w', '78%'); }, 820); setTimeout(() => { render(sampleEvents); statusText.textContent = 'Analysis complete'; progressBar.style.setProperty('--w', '100%'); analyzeBtn.disabled = false; }, 1250); }
+    videoInput.addEventListener('change', event => { const file = event.target.files[0]; if (!file) return; video.src = URL.createObjectURL(file); emptyState.style.display = 'none'; videoStage.classList.add('has-video'); statusText.textContent = 'Video loaded'; runAnalysis(); });
+    analyzeBtn.addEventListener('click', runAnalysis); sampleBtn.addEventListener('click', () => { emptyState.style.display = 'none'; videoStage.classList.add('has-video'); statusText.textContent = 'Sample session loaded'; progressBar.style.setProperty('--w', '100%'); render(sampleEvents); });
+    exportBtn.addEventListener('click', () => { const payload = { generatedAt: new Date().toISOString(), session: $('modeSelect').value, events: currentEvents }; const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' }); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = 'courtsight-analysis.json'; link.click(); URL.revokeObjectURL(url); });
+    clearBtn.addEventListener('click', () => { court.querySelectorAll('.landing, .zone').forEach(el => el.remove()); eventList.innerHTML = ''; breakdown.innerHTML = ''; insights.innerHTML = ''; zoneNotes.innerHTML = ''; ['shots','topSpeed','avgRally'].forEach(id => $(id).textContent = '0'); ['inRate','attackRate','confidence'].forEach(id => $(id).textContent = '0%'); progressBar.style.setProperty('--w', '0%'); statusText.textContent = 'Ready for video'; });
     render(sampleEvents);
   </script>
 </body>
