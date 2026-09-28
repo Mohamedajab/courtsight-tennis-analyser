@@ -34,3 +34,9 @@ A production version would add:
 ## Run locally
 
 Open `outputs/tennis-vision-app.html` in a browser.
+
+## Architecture
+
+See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the current browser-only
+prototype architecture, proposed computer-vision pipeline, event schema,
+evaluation plan, deployment/privacy considerations and an interview walkthrough.
