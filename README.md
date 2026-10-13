@@ -35,6 +35,9 @@ A production version would add:
 
 Open `outputs/tennis-vision-app.html` in a browser.
 
+See [Using the prototype](docs/USAGE.md) for a sample-session walkthrough,
+optional local HTTP serving, export semantics and troubleshooting.
+
 ## Architecture
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the current browser-only
